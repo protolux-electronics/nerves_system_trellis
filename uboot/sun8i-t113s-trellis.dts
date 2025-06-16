@@ -5,16 +5,13 @@
 
 /dts-v1/;
 
-#include <arm/allwinner/sun8i-t113s.dtsi>
-
+#include "sun8i-t113s.dtsi"
 #include <dt-bindings/gpio/gpio.h>
-#include <dt-bindings/input/input.h>
 #include <dt-bindings/leds/common.h>
-#include <dt-bindings/pwm/pwm.h>
 
 / {
 	model = "Trellis T113-S4";
-	compatible = "protolux,trellis-t113", "allwinner,sun8i-t113s", "allwinner,sun8i";
+	compatible = "protolux,trellis-t113", "allwinner,sun8i-t113s";
 
 	aliases {
 		serial4 = &uart4;
@@ -64,16 +61,6 @@
 		vin-supply = <&reg_vcc5v>;
 	};
 
-	reg_usb: regulator-usb {
-		compatible = "regulator-fixed";
-		regulator-name = "vbus-5v";
-		regulator-min-microvolt = <5000000>;
-		regulator-max-microvolt = <5000000>;
-		gpio = <&pio 1 4 GPIO_ACTIVE_LOW>; /* PB4 */
-		startup-delay-us = <1000000>; /* 1 second */
-		off-on-delay-us = <1000000>; /* 1 second */
-		enable-active-low;
-	};
 };
 
 &cpu0 {
@@ -92,7 +79,17 @@
 	clock-frequency = <24000000>;
 };
 
-&wdt {
+/* eMMC */
+&mmc0 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&mmc0_pins>;
+	vmmc-supply = <&reg_3v3>;
+	disable-wp;
+	bus-width = <4>;
+	status = "okay";
+};
+
+&ohci1 {
 	status = "okay";
 };
 
@@ -107,7 +104,7 @@
 	uart4_pd_pins: uart4-pd-pins {
         pins = "PD7", "PD8";
         function = "uart4";
-        };
+    };
 };
 
 /* shell */
@@ -117,72 +114,17 @@
 	status = "okay";
 };
 
-&uart1 {
-	uart-has-rtscts;
-	pinctrl-0 = <&uart1_pg6_pins>, <&uart1_pg8_rts_cts_pins>;
-	pinctrl-names = "default";
-	status = "okay";
-
-	bluetooth {
-		compatible = "realtek,rtl8723bs-bt";
-		device-wake-gpios = <&pio 6 13 GPIO_ACTIVE_HIGH>; /* PG13 */
-		host-wake-gpios =  <&pio 6 14 GPIO_ACTIVE_HIGH>; /* PG14 */
-		enable-gpios = <&pio 6 15 GPIO_ACTIVE_HIGH>; /* PG15 */
-		max-speed = <115200>;
-		// max-speed = <1500000>;
-		status = "okay";
-	};
-};
-
-&mmc0 {
-	pinctrl-names = "default";
-	pinctrl-0 = <&mmc0_pins>;
-	vmmc-supply = <&reg_3v3>;
-	disable-wp;
-	bus-width = <4>;
+&ehci1 {
 	status = "okay";
 };
 
+/* The USB-C socket has its CC pins pulled to GND, so is hardwired as a UFP. */
 &usb_otg {
 	dr_mode = "peripheral";
 	status = "okay";
 };
 
 &usbphy {
-	usb1_vbus-supply = <&reg_usb>;
-	status = "okay";
-};
-
-&ehci1 {
-	status = "okay";
-};
-
-&ohci1 {
-	status = "okay";
-};
-
-&can0 {
-	pinctrl-names = "default";
-	pinctrl-0 = <&can0_pins>;
-	status = "okay";
-};
-
-&spi0 {
-	status = "disabled";
-};
-
-&mixer0 {
-	status = "disabled";
-};
-
-&tcon_top {
-	status = "disabled";
-};
-
-&tcon_lcd0 {
-	status = "disabled";
-};
-
-&crypto {
+	usb1_vbus-supply = <&reg_vcc5v>;
 	status = "okay";
 };

@@ -1,0 +1,25 @@
+From ca7becbd6ecfb532d293dd46af5e1b8b527453ad Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Wed, 21 May 2025 14:16:57 -0400
+Subject: [PATCH] Turn off DRAM remapping for T113-S4
+
+---
+ drivers/ram/sunxi/dram_sun20i_d1.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/ram/sunxi/dram_sun20i_d1.c b/drivers/ram/sunxi/dram_sun20i_d1.c
+index a1794032f3b..2a2e70e9f91 100644
+--- a/drivers/ram/sunxi/dram_sun20i_d1.c
++++ b/drivers/ram/sunxi/dram_sun20i_d1.c
+@@ -675,7 +675,7 @@ static void mctl_phy_ac_remapping(const dram_para_t *para,
+ 			switch (fuse) {
+ 			case 8: cfg = ac_remapping_tables[2]; break;
+ 			case 9: cfg = ac_remapping_tables[3]; break;
+-			case 10: cfg = ac_remapping_tables[5]; break;
++			case 10: cfg = ac_remapping_tables[0]; break;
+ 			case 11: cfg = ac_remapping_tables[4]; break;
+ 			default:
+ 			case 12: cfg = ac_remapping_tables[1]; break;
+-- 
+2.43.0
+

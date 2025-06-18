@@ -27,13 +27,13 @@
 		led-0 {
 			color = <LED_COLOR_ID_GREEN>;
 			function = LED_FUNCTION_STATUS;
-			gpios = <&pio 3 18 GPIO_ACTIVE_LOW>; /* PD18 */
+			gpios = <&pio 3 18 GPIO_ACTIVE_HIGH>; /* PD18 */
 		};
 
 		led-1 {
 			color = <LED_COLOR_ID_GREEN>;
 			function = LED_FUNCTION_STATUS;
-			gpios = <&pio 3 17 GPIO_ACTIVE_LOW>; /* PD17 */
+			gpios = <&pio 3 17 GPIO_ACTIVE_HIGH>; /* PD17 */
 		};
 	};
 

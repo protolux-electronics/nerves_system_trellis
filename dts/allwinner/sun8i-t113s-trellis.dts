@@ -17,6 +17,7 @@
 	compatible = "protolux,trellis-t113", "allwinner,sun8i-t113s", "allwinner,sun8i";
 
 	aliases {
+		serial1 = &uart1;
 		serial4 = &uart4;
 	};
 
@@ -30,13 +31,13 @@
 		led-0 {
 			color = <LED_COLOR_ID_GREEN>;
 			function = LED_FUNCTION_STATUS;
-			gpios = <&pio 3 18 GPIO_ACTIVE_LOW>; /* PD18 */
+			gpios = <&pio 3 18 GPIO_ACTIVE_HIGH>; /* PD18 */
 		};
 
 		led-1 {
 			color = <LED_COLOR_ID_GREEN>;
 			function = LED_FUNCTION_STATUS;
-			gpios = <&pio 3 17 GPIO_ACTIVE_LOW>; /* PD17 */
+			gpios = <&pio 3 17 GPIO_ACTIVE_HIGH>; /* PD17 */
 		};
 	};
 
@@ -62,17 +63,6 @@
 		regulator-min-microvolt = <880000>;
 		regulator-max-microvolt = <880000>;
 		vin-supply = <&reg_vcc5v>;
-	};
-
-	reg_usb: regulator-usb {
-		compatible = "regulator-fixed";
-		regulator-name = "vbus-5v";
-		regulator-min-microvolt = <5000000>;
-		regulator-max-microvolt = <5000000>;
-		gpio = <&pio 1 4 GPIO_ACTIVE_LOW>; /* PB4 */
-		startup-delay-us = <1000000>; /* 1 second */
-		off-on-delay-us = <1000000>; /* 1 second */
-		enable-active-low;
 	};
 };
 
@@ -107,7 +97,7 @@
 	uart4_pd_pins: uart4-pd-pins {
         pins = "PD7", "PD8";
         function = "uart4";
-        };
+	};
 };
 
 /* shell */
@@ -122,16 +112,6 @@
 	pinctrl-0 = <&uart1_pg6_pins>, <&uart1_pg8_rts_cts_pins>;
 	pinctrl-names = "default";
 	status = "okay";
-
-	bluetooth {
-		compatible = "realtek,rtl8723bs-bt";
-		device-wake-gpios = <&pio 6 13 GPIO_ACTIVE_HIGH>; /* PG13 */
-		host-wake-gpios =  <&pio 6 14 GPIO_ACTIVE_HIGH>; /* PG14 */
-		enable-gpios = <&pio 6 15 GPIO_ACTIVE_HIGH>; /* PG15 */
-		max-speed = <115200>;
-		// max-speed = <1500000>;
-		status = "okay";
-	};
 };
 
 &mmc0 {
@@ -149,7 +129,6 @@
 };
 
 &usbphy {
-	usb1_vbus-supply = <&reg_usb>;
 	status = "okay";
 };
 

@@ -24,3 +24,4 @@ index 11a49418225..6b78b8cfe6e 100644
  	sunxi_gpio_set_cfgpin(SUNXI_GPL(3), SUN8I_GPL_R_UART);
 -- 
 2.43.0
+

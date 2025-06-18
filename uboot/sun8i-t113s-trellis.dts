@@ -60,7 +60,6 @@
 		regulator-max-microvolt = <880000>;
 		vin-supply = <&reg_vcc5v>;
 	};
-
 };
 
 &cpu0 {
@@ -102,9 +101,9 @@
 	vcc-pg-supply = <&reg_3v3>;
 
 	uart4_pd_pins: uart4-pd-pins {
-        pins = "PD7", "PD8";
-        function = "uart4";
-    };
+		pins = "PD7", "PD8";
+		function = "uart4";
+	};
 };
 
 /* shell */

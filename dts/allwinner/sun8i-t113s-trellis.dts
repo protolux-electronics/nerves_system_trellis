@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 // Copyright (C) 2022 Arm Ltd.
+// Copyright (C) 2024 Connor Rigby <connorr@hey.com>
 
 #include <dt-bindings/interrupt-controller/irq.h>
 
@@ -17,7 +18,6 @@
 	compatible = "protolux,trellis-t113", "allwinner,sun8i-t113s", "allwinner,sun8i";
 
 	aliases {
-		serial1 = &uart1;
 		serial4 = &uart4;
 	};
 
@@ -95,8 +95,8 @@
 	vcc-pg-supply = <&reg_3v3>;
 
 	uart4_pd_pins: uart4-pd-pins {
-        pins = "PD7", "PD8";
-        function = "uart4";
+		pins = "PD7", "PD8";
+		function = "uart4";
 	};
 };
 

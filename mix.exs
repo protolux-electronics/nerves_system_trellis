@@ -12,19 +12,15 @@ defmodule NervesSystemTrellis.MixProject do
     [
       app: @app,
       version: @version,
-      elixir: "~> 1.9",
+      # Because we're using OTP 27, we need to enforce Elixir 1.17 or later.
+      elixir: "~> 1.17",
       compilers: Mix.compilers() ++ [:nerves_package],
       nerves_package: nerves_package(),
       description: description(),
       package: package(),
       deps: deps(),
       aliases: [loadconfig: [&bootstrap/1]],
-      docs: docs(),
-      preferred_cli_env: %{
-        docs: :docs,
-        "hex.build": :docs,
-        "hex.publish": :docs
-      }
+      docs: docs()
     ]
   end
 
@@ -38,6 +34,9 @@ defmodule NervesSystemTrellis.MixProject do
     Mix.Task.run("loadconfig", args)
   end
 
+  def cli do
+    [preferred_envs: %{docs: :docs, "hex.build": :docs, "hex.publish": :docs}]
+  end
 
   defp nerves_package do
     [

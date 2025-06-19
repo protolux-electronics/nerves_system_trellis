@@ -29,7 +29,7 @@
 		compatible = "gpio-leds";
 
 		led-0 {
-			color = <LED_COLOR_ID_GREEN>;
+			color = <LED_COLOR_ID_AMBER>;
 			function = LED_FUNCTION_STATUS;
 			gpios = <&pio 3 18 GPIO_ACTIVE_HIGH>; /* PD18 */
 		};

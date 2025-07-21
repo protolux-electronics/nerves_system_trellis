@@ -103,6 +103,7 @@ defmodule NervesSystemTrellis.MixProject do
       "linux",
       "rootfs_overlay",
       "uboot",
+      "dts",
       "CHANGELOG.md",
       "fwup-ops.conf",
       "fwup.conf",

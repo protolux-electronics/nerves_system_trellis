@@ -50,6 +50,7 @@
 		regulator-min-microvolt = <3300000>;
 		regulator-max-microvolt = <3300000>;
 		vin-supply = <&reg_vcc5v>;
+		regulator-always-on;
 	};
 
 	reg_vcc_core: regulator-core {
@@ -58,6 +59,7 @@
 		regulator-min-microvolt = <880000>;
 		regulator-max-microvolt = <880000>;
 		vin-supply = <&reg_vcc5v>;
+		regulator-always-on;
 	};
 };
 

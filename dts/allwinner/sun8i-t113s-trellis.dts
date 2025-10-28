@@ -153,6 +153,7 @@
 	disable-wp;
 	bus-width = <4>;
 	non-removable;
+	broken-cd;
 	status = "okay";
 };
 

@@ -154,6 +154,7 @@
 	vmmc-supply = <&reg_3v3>;
 	disable-wp;
 	bus-width = <4>;
+	max-frequency = <50000000>;
 	non-removable;
 	broken-cd;
 	no-1-8-v;

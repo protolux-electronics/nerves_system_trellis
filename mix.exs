@@ -67,7 +67,7 @@ defmodule NervesSystemTrellis.MixProject do
   defp deps do
     [
       {:nerves, "~> 1.11", runtime: false},
-      {:nerves_system_br, "1.31.6", runtime: false},
+      {:nerves_system_br, "1.33.2", runtime: false},
       {:nerves_toolchain_armv7_nerves_linux_gnueabihf, "~> 13.2.0", runtime: false},
       {:nerves_system_linter, "~> 0.4", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.22", only: :docs, runtime: false}
@@ -82,7 +82,7 @@ defmodule NervesSystemTrellis.MixProject do
     [
       extras: ["README.md", "CHANGELOG.md"],
       main: "readme",
-      assets: "assets",
+      assets: %{"assets" => "./assets"},
       source_ref: "v#{@version}",
       source_url: @source_url,
       skip_undefined_reference_warnings_on: ["CHANGELOG.md"]

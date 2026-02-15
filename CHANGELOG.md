@@ -12,6 +12,16 @@ follows:
    releases, and Linux kernel updates. They're also made to fix bugs and add
    features to the build infrastructure.
 
+## v0.2.0
+
+Bump `nerves_system_br` and `nerves` versions to latest. This update provides
+support for OTP 28 and Elixir 1.19.
+
+Additionally, this changes the platform name from `vitis` to `trellis` in
+`fwup.conf`. This may result in an error when upgrading firmware OTA via
+fwup. Please reflash any affected boards using FEL mode and
+[`usb_fel_loaders`](https://github.com/gworkman/usb_fel_loaders)
+
 ## v0.1.1
 
 Add support for RTL8723 wifi modules.

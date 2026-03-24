@@ -1,5 +1,7 @@
 # Nerves System Trellis
 
+[![Hex version](https://img.shields.io/hexpm/v/nerves_system_trellis.svg "Hex version")](https://hex.pm/packages/nerves_system_trellis)
+
 This project provides the base Nerves System configuration for the Trellis
 hardware platform. Unlike traditional single-board computers, Trellis is
 designed as a hardware template for creating custom embedded devices.
@@ -47,11 +49,12 @@ Trellis-based hardware.
 | WiFi           | Various Realtek modules supported                                   |
 | HW Watchdog    | Enabled                                                             |
 
-## Getting Started
+## Using
 
-To use this system, you will need to have
-[Nerves](https://hexdocs.pm/nerves/installation.html) installed on your
-development machine.
+The most common way of creating a Nerves project using this system is to run
+`mix nerves.new my_app` and export `MIX_TARGET=trellis`. See the [Getting
+started guide](https://hexdocs.pm/nerves/getting-started.html) for more
+information.
 
 Initial flashing of Trellis hardware is typically performed using FEL mode. This
 allows you to load firmware onto a blank device over USB without needing an SD
@@ -60,6 +63,16 @@ the [usb_fel_loaders](https://github.com/gworkman/usb_fel_loaders) repository.
 
 Once the initial firmware is loaded, standard Nerves over-the-air (OTA) updates
 can be used for subsequent deployments.
+
+If you need custom modifications to this system for your device, see the
+[Nerves documentation on customizing
+systems](https://hexdocs.pm/nerves/customizing-systems.html).
+
+## Linux kernel
+
+The Linux kernel is built from the mainline 6.12 release with patches for the
+Allwinner T113-S4. The default kernel configuration is in `linux_defconfig`.
+
 
 ## Special Thanks
 

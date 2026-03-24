@@ -1,26 +1,67 @@
-# Trellis Nerves Support
+# Nerves System Trellis
 
-This is the base Nerves System configuration for [Trellis](https://github.com/protolux-electronics/trellis).
+This project provides the base Nerves System configuration for the Trellis
+hardware platform. Unlike traditional single-board computers, Trellis is
+designed as a hardware template for creating custom embedded devices.
 
+## Hardware Platform
 
-| Feature              | Description                     |
-| -------------------- | ------------------------------- |
-| CPU                  | 1.2 GHz ARM Cortex-A7 Dual-Core |
-| Memory               | 256 MB DDR3                     |
-| Storage              | Onboard Flash                   |
-| Linux kernel         | 6.1 w/ patches                  |
-| IEx terminal         | UART `ttyS0`                    |
-| GPIO, I2C, SPI       | Yes - [Elixir Circuits](https://github.com/elixir-circuits) |
-| Display              | No                              |
-| ADC                  | No                              |
-| PWM                  | 8 channels                      |
-| UART                 | ttyS0                           |
-| Camera               | No                              |
-| Ethernet             | No                              |
-| WiFi                 | Onboard WiFi                    |
-| RTC                  | No                              |
-| HW Watchdog          | Yes                             |
+Trellis is a flexible design centered around the Allwinner T113-S4 SoC. This
+dual-core ARM Cortex-A7 processor includes 256 MB of integrated DDR3 RAM, which
+simplifies PCB routing and reduces the overall footprint of custom designs.
+
+A Trellis-compatible design typically adheres to the following core
+specifications:
+
+- The system is based on the Allwinner T113-S4 SoC.
+- Storage and booting are handled via an SDIO flash chip connected to the MMC0
+  peripheral.
+- High-speed wireless connectivity is provided by onboard SDIO WiFi modules,
+  such as the Realtek RTL8188FU or RTL8723.
+
+### Reference Designs
+
+There are several open-source hardware projects that utilize the Trellis
+template. These repositories provide KiCad source files that can be used as a
+starting point for your own custom hardware.
+
+- [Trellis Core](https://github.com/protolux-electronics/trellis_core) contains
+  the primary KiCad source files for the base hardware template.
+- [Wisteria Hardware](https://github.com/protolux-electronics/wisteria_hardware)
+  is the hardware implementation used for the 2025 Goatmire conference name
+  badge, demonstrating the template's use in a specific form factor.
+
+## Features
+
+This system configuration enables a standard set of peripherals across
+Trellis-based hardware.
+
+| Feature        | Description                                                         |
+| -------------- | ------------------------------------------------------------------- |
+| CPU            | 1.2 GHz Dual-core ARM Cortex-A7                                     |
+| Memory         | 256 MB Integrated DDR3                                              |
+| Storage        | SDIO Flash (on MMC0)                                                |
+| Linux kernel   | 6.12.32                                                             |
+| IEx terminal   | UART `ttyS4`                                                        |
+| GPIO, I2C, SPI | Supported via [Elixir Circuits](https://github.com/elixir-circuits) |
+| WiFi           | Various Realtek modules supported                                   |
+| HW Watchdog    | Enabled                                                             |
+
+## Getting Started
+
+To use this system, you will need to have
+[Nerves](https://hexdocs.pm/nerves/installation.html) installed on your
+development machine.
+
+Initial flashing of Trellis hardware is typically performed using FEL mode. This
+allows you to load firmware onto a blank device over USB without needing an SD
+card slot. You can find the necessary tools and instructions for this process in
+the [usb_fel_loaders](https://github.com/gworkman/usb_fel_loaders) repository.
+
+Once the initial firmware is loaded, standard Nerves over-the-air (OTA) updates
+can be used for subsequent deployments.
 
 ## Special Thanks
 
-Thank you to Connor Rigby who laid down the base for this repo
+Thank you to Connor Rigby who brought up initial support for the Allwinner
+T113-S3.

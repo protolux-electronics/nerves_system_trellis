@@ -16,10 +16,12 @@ A Trellis-compatible design typically adheres to the following core
 specifications:
 
 - The system is based on the Allwinner T113-S4 SoC.
-- Storage and booting are handled via an SDIO flash chip connected to the MMC0
-  peripheral.
-- High-speed wireless connectivity is provided by onboard SDIO WiFi modules,
-  such as the Realtek RTL8188FU or RTL8723.
+- Storage and booting are handled via an SDIO flash chip usually connected to
+  the MMC0 peripheral.
+- High-speed wireless connectivity can be provided by attached WiFi modules,
+  such as the Realtek RTL8188 or RTL8723.
+- A USB-C connector attached to USB0 (for FEL mode and initial flashing)
+- Debug console on UART4
 
 ### Reference Designs
 
@@ -43,7 +45,7 @@ Trellis-based hardware.
 | CPU            | 1.2 GHz Dual-core ARM Cortex-A7                                     |
 | Memory         | 256 MB Integrated DDR3                                              |
 | Storage        | SDIO Flash (on MMC0)                                                |
-| Linux kernel   | 6.12.32                                                             |
+| Linux kernel   | 6.12 with patches                                                   |
 | IEx terminal   | UART `ttyS4`                                                        |
 | GPIO, I2C, SPI | Supported via [Elixir Circuits](https://github.com/elixir-circuits) |
 | WiFi           | Various Realtek modules supported                                   |
@@ -52,14 +54,15 @@ Trellis-based hardware.
 ## Using
 
 The most common way of creating a Nerves project using this system is to run
-`mix nerves.new my_app` and export `MIX_TARGET=trellis`. See the [Getting
-started guide](https://hexdocs.pm/nerves/getting-started.html) for more
+`mix nerves.new my_app` and export `MIX_TARGET=trellis`. See the
+[Getting started guide](https://hexdocs.pm/nerves/getting-started.html) for more
 information.
 
-Initial flashing of Trellis hardware is typically performed using FEL mode. This
-allows you to load firmware onto a blank device over USB without needing an SD
-card slot. You can find the necessary tools and instructions for this process in
-the [usb_fel_loaders](https://github.com/gworkman/usb_fel_loaders) repository.
+Initial flashing of Trellis hardware without an SD card is typically performed
+using FEL mode. This allows you to load firmware onto a blank device over USB
+without needing an SD card slot. You can find the necessary tools and
+instructions for this process in the
+[usb_fel_loaders](https://github.com/gworkman/usb_fel_loaders) repository.
 
 Once the initial firmware is loaded, standard Nerves over-the-air (OTA) updates
 can be used for subsequent deployments.
@@ -72,7 +75,6 @@ systems](https://hexdocs.pm/nerves/customizing-systems.html).
 
 The Linux kernel is built from the mainline 6.12 release with patches for the
 Allwinner T113-S4. The default kernel configuration is in `linux_defconfig`.
-
 
 ## Special Thanks
 

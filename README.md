@@ -1,27 +1,53 @@
-# Trellis (Allwinner T113-S4)
+# Nerves System Trellis
 
 [![Hex version](https://img.shields.io/hexpm/v/nerves_system_trellis.svg "Hex version")](https://hex.pm/packages/nerves_system_trellis)
 
-This is the base Nerves System configuration for the [Trellis Core](https://github.com/protolux-electronics/trellis_core) board,
-built around the Allwinner T113-S4 SoC.
+This project provides the base Nerves System configuration for the Trellis
+hardware platform. Unlike traditional single-board computers, Trellis is
+designed as a hardware template for creating custom embedded devices.
 
-| Feature              | Trellis Core                    | Wisteria                        |
-| -------------------- | ------------------------------- | ------------------------------- |
-| CPU                  | 1.2 GHz dual-core Cortex-A7 (ARMv7) | same                       |
-| Memory               | 256 MB DDR3                     | same                            |
-| Storage              | Onboard eMMC flash              | same                            |
-| Linux kernel         | 6.12 w/ patches                 | same                            |
-| IEx terminal         | UART `ttyS4`                    | same                            |
-| GPIO, I2C, SPI       | Yes - [Elixir Circuits](https://github.com/elixir-circuits) | same |
-| PWM                  | 8 channels                      | same                            |
-| UART                 | ttyS4                           | same                            |
-| Display              | No                              | 4.2" e-ink                      |
-| WiFi                 | No                              | Yes - [VintageNet](https://github.com/nerves-networking/vintage_net) |
-| CAN bus              | Yes                             | same                            |
-| USB                  | USB OTG + USB Host              | same                            |
-| Battery              | No                              | Yes (~8 hours runtime)          |
-| HW Watchdog          | Yes                             | same                            |
-| HW Crypto            | Yes                             | same                            |
+## Hardware Platform
+
+Trellis is a flexible design centered around the Allwinner T113-S4 SoC. This
+dual-core ARM Cortex-A7 processor includes 256 MB of integrated DDR3 RAM, which
+simplifies PCB routing and reduces the overall footprint of custom designs.
+
+A Trellis-compatible design typically adheres to the following core
+specifications:
+
+- The system is based on the Allwinner T113-S4 SoC.
+- Storage and booting are handled via an SDIO flash chip connected to the MMC0
+  peripheral.
+- High-speed wireless connectivity is provided by onboard SDIO WiFi modules,
+  such as the Realtek RTL8188FU or RTL8723.
+
+### Reference Designs
+
+There are several open-source hardware projects that utilize the Trellis
+template. These repositories provide KiCad source files that can be used as a
+starting point for your own custom hardware.
+
+- [Trellis Core](https://github.com/protolux-electronics/trellis_core) contains
+  the primary KiCad source files for the base hardware template.
+- [Wisteria Hardware](https://github.com/protolux-electronics/wisteria_hardware)
+  is the hardware implementation used for the 2025 Goatmire conference name
+  badge, demonstrating the template's use in a specific form factor.
+
+## Features
+
+This system configuration enables a standard set of peripherals across
+Trellis-based hardware.
+
+| Feature        | Description                                                         |
+| -------------- | ------------------------------------------------------------------- |
+| CPU            | 1.2 GHz Dual-core ARM Cortex-A7                                     |
+| Memory         | 256 MB Integrated DDR3                                              |
+| Storage        | SDIO Flash (on MMC0)                                                |
+| Linux kernel   | 6.12.32                                                             |
+| IEx terminal   | UART `ttyS4`                                                        |
+| GPIO, I2C, SPI | Supported via [Elixir Circuits](https://github.com/elixir-circuits) |
+| WiFi           | Various Realtek modules supported                                   |
+| HW Watchdog    | Enabled                                                             |
 
 ## Using
 
@@ -30,27 +56,25 @@ The most common way of creating a Nerves project using this system is to run
 started guide](https://hexdocs.pm/nerves/getting-started.html) for more
 information.
 
+Initial flashing of Trellis hardware is typically performed using FEL mode. This
+allows you to load firmware onto a blank device over USB without needing an SD
+card slot. You can find the necessary tools and instructions for this process in
+the [usb_fel_loaders](https://github.com/gworkman/usb_fel_loaders) repository.
+
+Once the initial firmware is loaded, standard Nerves over-the-air (OTA) updates
+can be used for subsequent deployments.
+
 If you need custom modifications to this system for your device, see the
 [Nerves documentation on customizing
 systems](https://hexdocs.pm/nerves/customizing-systems.html).
-
-## Provisioning
-
-This system supports the Nerves key-value store for provisioning information.
-Provisioning values can be set using the
-[`boardid`](https://github.com/nerves-project/boardid) tool or `Nerves.Runtime.KV`.
 
 ## Linux kernel
 
 The Linux kernel is built from the mainline 6.12 release with patches for the
 Allwinner T113-S4. The default kernel configuration is in `linux_defconfig`.
 
-## Wisteria
-
-The [Wisteria](https://github.com/protolux-electronics/wisteria_hardware) is a
-Nerves-powered e-ink name badge built on the Trellis Core. It was developed for
-the Goatmire Conference.
 
 ## Special Thanks
 
-Thank you to Connor Rigby who laid down the base for this repo.
+Thank you to Connor Rigby who brought up initial support for the Allwinner
+T113-S3.

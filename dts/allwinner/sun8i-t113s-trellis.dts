@@ -28,11 +28,17 @@
 	leds {
 		compatible = "gpio-leds";
 
-		led-1 {
-			color = <LED_COLOR_ID_RED>;
+		led-0 {
+			color = <LED_COLOR_ID_GREEN>;
 			function = LED_FUNCTION_STATUS;
-			gpios = <&pio 4 9 GPIO_ACTIVE_HIGH>; /* PE9 */
+			gpios = <&pio 3 18 GPIO_ACTIVE_HIGH>; /* PD18 */
 			linux,default-trigger = "heartbeat";
+		};
+
+		led-1 {
+			color = <LED_COLOR_ID_BLUE>;
+			function = LED_FUNCTION_INDICATOR;
+			gpios = <&pio 3 19 GPIO_ACTIVE_HIGH>; /* PD19 */
 		};
 	};
 
@@ -98,23 +104,23 @@
 		"","","","","","","","",
 		"","","","","","","","",
 		/* PB */
-		"","","WIFI_EN","","","","","",
+		"","","CAN0_TX","CAN0_RX","UART5_TX","UART5_RX","UART3_TX","UART3_RX",
 		"","","","","","","","",
 		"","","","","","","","",
 		"","","","","","","","",
 		/* PC */
-		"","","","","","","","",
+		"","","CAN0_SIL","","","","","",
 		"","","","","","","","",
 		"","","","","","","","",
 		"","","","","","","","",
 		/* PD */
-		"","","","","BTN_1","BTN_2","","",
-		"","","","","","","","",
-		"EPD_DC","EPD_RESET","EPD_BUSY","","","","","",
+		"","","","","","","","UART4_TX",
+		"UART4_RX","","","","","","ESP_BOOT","",
+		"ESP_RESET","LED_GREEN","LED_BLUE","","","","","",
 		"","","","","","","","",
 		/* PE */
 		"","","","","","","","",
-		"","LED_1","LED_2","","","","","",
+		"","","","","","","","",
 		"","","","","","","","",
 		"","","","","","","","",
 		/* PF */
@@ -123,8 +129,8 @@
 		"","","","","","","","",
 		"","","","","","","","",
 		/* PG */
-		"","","","","","","","",
-		"","","","","","","","",
+		"MMC1_CLK","MMC1_CMD","MMC1_D0","MMC1_D1","MMC1_D2","MMC1_D3","UART1_TX","UART1_RX",
+		"UART1_RTS","","","","","","I2C2_SCL","I2C2_SDA",
 		"","","","","","","","",
 		"","","","","","","","";
 
@@ -133,9 +139,16 @@
 		function = "uart4";
 	};
 
-	spi1_pd_pins: spi1-pd-pins {
-		pins = "PD10", "PD11", "PD12", "PD13";
-		function = "spi1";
+	/omit-if-no-ref/
+	i2c2_pg_pins: i2c2-pg-pins {
+		pins = "PG14", "PG15";
+		function = "i2c2";
+	};
+
+	/omit-if-no-ref/
+	uart5_pb_pins: uart5-pb-pins {
+		pins = "PB4", "PB5";
+		function = "uart5";
 	};
 };
 
@@ -211,6 +224,58 @@
 
 &tcon_lcd0 {
 	status = "disabled";
+};
+
+&can0 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&can0_pins>;
+	silent-gpios = <&pio 2 2 GPIO_ACTIVE_HIGH>; /* PC2 */
+	status = "okay";
+};
+
+&i2c2 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&i2c2_pg_pins>;
+	status = "okay";
+};
+
+&uart1 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&uart1_pg6_pins>, <&uart1_pg8_rts_cts_pins>;
+	uart-has-rtscts;
+	linux,rs485-enabled-at-boot-time;
+	status = "okay";
+};
+
+&uart3 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&uart3_pb_pins>;
+	status = "okay";
+};
+
+&uart5 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&uart5_pb_pins>;
+	status = "okay";
+};
+
+&mmc1 {
+	vmmc-supply = <&reg_3v3>;
+	vqmmc-supply = <&reg_3v3>;
+	bus-width = <4>;
+	non-removable;
+	broken-cd;
+	no-1-8-v;
+	pinctrl-names = "default";
+	pinctrl-0 = <&mmc1_pins>;
+	status = "okay";
+
+	// esp32: wifi@1 {
+	// 	compatible = "espressif,esp32-sdio", "espressif,esp-hosted-sdio";
+	// 	reg = <1>;
+	// 	reset-gpios = <&pio 3 15 GPIO_ACTIVE_LOW>; /* PD15 */
+	// 	boot-gpios = <&pio 3 14 GPIO_ACTIVE_LOW>; /* PD14 */
+	// };
 };
 
 &crypto {

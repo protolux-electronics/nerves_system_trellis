@@ -204,18 +204,9 @@
 	status = "disabled";
 };
 
-// &spi1 {
-// 	pinctrl-names = "default";
-// 	pinctrl-0 = <&spi1_pd_pins>;
-// 	status = "okay";
-// 
-// 	/* Generic spidev on chip-select 0  → /dev/spidev0.0 */
-// 	spidev0: spidev@0 {
-// 	  compatible = "menlo,m53cpld";
-// 	  reg = <0>;
-// 	  spi-max-frequency = <10000000>;
-// 	};
-// };
+&spi1 {
+	status = "disabled";
+};
 
 &mixer0 {
 	status = "disabled";

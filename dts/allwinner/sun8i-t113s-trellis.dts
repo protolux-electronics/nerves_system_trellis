@@ -17,9 +17,12 @@
 	model = "Trellis T113-S4";
 	compatible = "protolux,trellis-t113", "allwinner,sun8i-t113s", "allwinner,sun8i";
 
-	aliases {
-		serial4 = &uart4;
-	};
+	aliases {                                      
+      serial1 = &uart1;                        
+      serial3 = &uart3;
+      serial4 = &uart4;
+      serial5 = &uart5;
+  	};
 
 	chosen {
 		stdout-path = "serial4:115200n8";
@@ -202,18 +205,18 @@
 	status = "disabled";
 };
 
-&spi1 {
-	pinctrl-names = "default";
-	pinctrl-0 = <&spi1_pd_pins>;
-	status = "okay";
-
-	/* Generic spidev on chip-select 0  → /dev/spidev0.0 */
-	spidev0: spidev@0 {
-	  compatible = "menlo,m53cpld";
-	  reg = <0>;
-	  spi-max-frequency = <10000000>;
-	};
-};
+// &spi1 {
+// 	pinctrl-names = "default";
+// 	pinctrl-0 = <&spi1_pd_pins>;
+// 	status = "okay";
+// 
+// 	/* Generic spidev on chip-select 0  → /dev/spidev0.0 */
+// 	spidev0: spidev@0 {
+// 	  compatible = "menlo,m53cpld";
+// 	  reg = <0>;
+// 	  spi-max-frequency = <10000000>;
+// 	};
+// };
 
 &mixer0 {
 	status = "disabled";
@@ -245,6 +248,7 @@
 	pinctrl-0 = <&uart1_pg6_pins>, <&uart1_pg8_rts_cts_pins>;
 	uart-has-rtscts;
 	linux,rs485-enabled-at-boot-time;
+	rs485-rts-active-high;
 	status = "okay";
 };
 

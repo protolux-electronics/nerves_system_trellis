@@ -43,6 +43,12 @@
 			function = LED_FUNCTION_INDICATOR;
 			gpios = <&pio 3 19 GPIO_ACTIVE_HIGH>; /* PD19 */
 		};
+
+		led-2 {
+			function = "wlan";
+			gpios = <&pio 3 17 GPIO_ACTIVE_HIGH>; /* PD17 */
+			linux,default-trigger = "netdev";
+		};
 	};
 
 	reg_vcc5v: regulator-5v {

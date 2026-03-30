@@ -239,6 +239,8 @@
 	uart-has-rtscts;
 	linux,rs485-enabled-at-boot-time;
 	rs485-rts-active-high;
+	rs485-rts-delay-before-send = <1>;
+	rs485-rts-delay-after-send = <1>;
 	status = "okay";
 };
 

@@ -1,0 +1,34 @@
+From 118505cac5589473a2f3513cc3b0c2f6871a6b2a Mon Sep 17 00:00:00 2001
+From: Gus Workman <gworkman@users.noreply.github.com>
+Date: Fri, 3 Apr 2026 10:16:27 +0000
+Subject: [PATCH] fix devm reset control deasserted error
+
+---
+ drivers/pwm/pwm-sun8i.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/pwm/pwm-sun8i.c b/drivers/pwm/pwm-sun8i.c
+index 6e196f313..162ab245d 100644
+--- a/drivers/pwm/pwm-sun8i.c
++++ b/drivers/pwm/pwm-sun8i.c
+@@ -365,11 +365,16 @@ static int sun8i_pwm_probe(struct platform_device *pdev)
+ 		return dev_err_probe(&pdev->dev, ret,
+ 				     "Failed to get apb exclusive rate\n");
+ 
+-	rst = devm_reset_control_get_exclusive_deasserted(&pdev->dev, NULL);
++	rst = devm_reset_control_get_exclusive(&pdev->dev, NULL);
+ 	if (IS_ERR(rst))
+ 		return dev_err_probe(&pdev->dev, PTR_ERR(rst),
+ 				     "Failed to get reset control\n");
+ 
++	ret = reset_control_deassert(rst);
++	if (ret)
++    return dev_err_probe(&pdev->dev, ret,
++             "Failed to deassert reset control\n");
++
+ 	chip->ops = &sun8i_pwm_ops;
+ 
+ 	ret = devm_pwmchip_add(&pdev->dev, chip);
+-- 
+2.43.0
+

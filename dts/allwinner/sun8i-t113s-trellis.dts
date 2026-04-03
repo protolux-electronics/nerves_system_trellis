@@ -133,12 +133,10 @@
 		function = "uart4";
 	};
 
-	/omit-if-no-ref/
 	spi1_pd_pins: spi1-pd-pins {
 		pins = "PD10", "PD11", "PD12", "PD13";
 		function = "spi1";
 	};
-
 };
 
 /* shell */
@@ -217,4 +215,8 @@
 
 &crypto {
 	status = "okay";
+};
+
+&pwm {
+    status = "disabled";
 };

@@ -1,1 +1,6 @@
 # Add project-specific packages for Buildroot here
+menu "Custom Packages"
+
+source "$NERVES_DEFCONFIG_DIR/packages/esp-hosted2/Config.in"
+
+endmenu

@@ -120,8 +120,8 @@
 		"EPD_DC","EPD_RESET","EPD_BUSY","","","","","",
 		"","","","","","","","",
 		/* PE */
-		"STM_RESET","POWER_OFF","UART0_TX","UART0_RX","","LEDC","GPIO2","",
-		"PWM2","PWM3","PWM4","GPIO1","","PWM5","","",
+		"STM_RESET","POWER_OFF","PE2","PE3","PE4","PE5","PE6","PE7",
+		"PE8","PE9","PE10","PE11","PE12","PE13","","",
 		"","","","","","","","",
 		"","","","","","","","",
 		/* PF */

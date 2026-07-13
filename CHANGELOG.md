@@ -12,6 +12,14 @@ follows:
    releases, and Linux kernel updates. They're also made to fix bugs and add
    features to the build infrastructure.
 
+## v0.4.1
+
+* Changes
+  * Disable UART0 to avoid conflict with expansion GPIOs. In the future, the
+    plan is to allow it to be enabled via a DTS overlay.
+  * Add GPIO labels for PE2 - PE13 to make it easier to refer to them with
+    Circuits.GPIO.
+
 ## v0.4.0
 
 This is a major update with support for the Nerves Starter Kit. It still

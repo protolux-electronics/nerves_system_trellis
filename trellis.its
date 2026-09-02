@@ -1,0 +1,68 @@
+// SPDX-FileCopyrightText: None
+// SPDX-License-Identifier: CC0-1.0
+
+/dts-v1/;
+
+/ {
+    description = "Protolux Trellis";
+    #address-cells = <1>;
+
+    images {
+        kernel {
+            description = "Linux kernel";
+            data = /incbin/("zImage");
+            type = "kernel";
+            arch = "arm";
+            os = "linux";
+            compression = "none";
+            load = <0x40040000>;
+            entry = <0x40040000>;
+
+            hash {
+                algo = "sha256";
+            };
+        };
+
+        fdt-nerves-starter-kit {
+            description = "Nerves Starter Kit device tree";
+            data = /incbin/("sun8i-t113s-nerves-starter-kit.dtb");
+            type = "flat_dt";
+            arch = "arm";
+            compression = "none";
+            load = <0x41800000>;
+
+            hash {
+                algo = "sha256";
+            };
+        };
+
+        fdt-goatmire-badge {
+            description = "Goatmire Badge device tree";
+            data = /incbin/("sun8i-t113s-goatmire-badge.dtb");
+            type = "flat_dt";
+            arch = "arm";
+            compression = "none";
+            load = <0x41800000>;
+
+            hash {
+                algo = "sha256";
+            };
+        };
+    };
+
+    configurations {
+        default = "nerves-starter-kit";
+
+        nerves-starter-kit {
+            description = "Nerves Starter Kit";
+            kernel = "kernel";
+            fdt = "fdt-nerves-starter-kit";
+        };
+
+        goatmire-badge {
+            description = "Goatmire Badge";
+            kernel = "kernel";
+            fdt = "fdt-goatmire-badge";
+        };
+    };
+};

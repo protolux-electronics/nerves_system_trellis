@@ -109,6 +109,7 @@ defmodule NervesSystemTrellis.MixProject do
       "uboot",
       "busybox.fragment",
       "dts",
+      "trellis.its",
       "CHANGELOG.md",
       "fwup-ops.conf",
       "fwup.conf",

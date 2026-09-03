@@ -12,6 +12,28 @@ follows:
    releases, and Linux kernel updates. They're also made to fix bugs and add
    features to the build infrastructure.
 
+## v0.5.0
+
+IMPORTANT: This is a non-backwards compatible release. You will have to reflash
+your NSK or Goatmire badge.
+
+* Changes
+  * Change U-Boot failure recovery to use U-Boot's upgrade_available feature.
+    This fixes an issue preventing first-boot rollback.
+  * Use FIT images rather than read kernels from the rootfs. This adds
+    flexibility to kernel/dts configurations and possible future initrd use.
+  * Allow booting from EROFS root filesystems. This will be supported with
+    Nerves 2.
+  * Trim U-Boot wait time to 0 seconds. It's still possible to break into
+    U-Boot, and this saves 2 seconds of boot time.
+  * Add balance bot device tree configuration. This is not enabled by default.
+  * Add a redundant U-Boot environment block to protect against corruption
+    there.
+  * Allow Nerves 2 pre-releases to be used
+
+* Package updates
+  * [nerves_system_br 1.34.4](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.34.4)
+
 ## v0.4.2
 
 This is a security and bug fix release.

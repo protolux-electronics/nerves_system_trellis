@@ -73,6 +73,18 @@ If you need custom modifications to this system for your device, see the
 [Nerves documentation on customizing
 systems](https://hexdocs.pm/nerves/customizing-systems.html).
 
+## U-Boot
+
+It's possible to break into U-Boot via the debug UART by holding down the enter
+key when booting.
+
+When in U-Boot, it's possible to expose the flash as a mass storage device over
+USB by running the following:
+
+```
+ums 0 mmc 0:0
+```
+
 ## Linux kernel
 
 The Linux kernel is built from the mainline 6.12 release with patches for the
